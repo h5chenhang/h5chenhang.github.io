@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        })(document, 'script', 'facebook-jssdk');
+    </script>
+</head>
+<body>
+    <fb:login-button scope="public_profile,email"  onlogin="checkLoginState();"></fb:login-button>
+</body>
+</html>
+
+<script>
+
+
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: 710954812568812,
+            xfbml: true,
+            version: 'v3.0'
+        })
+    }
+
+
+    var fbToken;
+    function checkLoginState () {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+        })
+    }
+
+    function statusChangeCallback (response) {
+        if (response.status === 'connected') {
+            console.log("facebook返回值======>",response);
+            fbToken = response.authResponse.accessToken;
+            getUserInfo();
+        }else if (response.status === 'not_authorized') {
+            console.log('facebook未经授权');
+        }else {
+            console.log('不是登陆到Facebook;不知道是否授权');
+        }
+    }
+
+    function getUserInfo () {
+        FB.api('/me', function (response) {
+            console.log("登录成功facebook返回值======>",response);
+        })
+    }
+</script>
