@@ -78,7 +78,10 @@
 
     var log = console.log;
 　　 hello.init({
-            'twitter' : appkey
+            'twitter' : "NMEIZwjeibTANMFGlE2sJEbKG"
+        },
+        {
+            oauth_proxy: 'https://auth-server.herokuapp.com/proxy'
         });
     function login_twitter(network){  //登录方法，并将twitter 作为参数传入
         // Twitter instance
@@ -88,7 +91,7 @@
             // Get Profile
             return twitter.api('/me');
         }, log ) .then( function(p){
-                console.log(p);
+                console.log("twitter=======>",p);
                 console.log("Connected to "+ network+" as " + p.name);
                 var res = JSON.stringify(p);//因为得不到token，但是这步已经得到用户所有信息，所以将用户信息转成JSON字符串给后台
                 self.location= '/home/login.twLogin.do?result='+res;
